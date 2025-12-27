@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SENA ACCESS - Escanear QR</title>
+<link rel="stylesheet" href="paginas.css">
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<style>
+  .sidebar {
+    width: 200px;
+    float: left;
+    background-color: #f4f4f4;
+    height: 100vh;
+    padding: 15px;
+  }
+  .content {
+    margin-left: 220px;
+    padding: 20px;
+  }
+  #reader {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    position: relative;
+  }
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: red;
+    animation: scan-animation 2s linear infinite;
+  }
+  @keyframes scan-animation {
+    0% { top: 0; }
+    100% { top: 100%; }
+  }
+  #resultado {
+    margin-top: 15px;
+    font-weight: bold;
+    white-space: pre-line;
+  }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>BIENVENIDO</h2>
+  <a href="aprendizes.html">Aprendices</a>
+  <a href="actividad_de_ingresos_salidas.html">Actividad de Ingresos y Salidas</a>
+  <a href="escanear_qr.html">Escanear QR</a>
+</div>
+
+<div class="content">
+  <h3>Registro de Ingreso/Salida</h3>
+  <div id="reader">
+    <div class="scan-line"></div>
+  </div>
+  <div id="resultado">Esperando escaneo...</div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+  // Datos de ejemplo de aprendices (simulando base de datos)
+  const aprendices = [
+    {
+      id: 1,
+      documento: "1009283744",
+      nombre: "Juanito",
+      apellido: "Garzon Sifuentes",
+      correo: "juanito.garzon@example.com",
+      ficha: "2989837",
+      telefono: "32471625736"
+    },
+    {
+      id: 2,
+      documento: "1007316700", 
+      nombre: "Jhon Anderson",
+      apellido: "Gonzalez Ramirez",
+      correo: "jhongonsales21@gmail.com",
+      ficha: "2993186",
+      telefono: "3249858782"
+    }
+  ];
+
+  let html5QrCode;
+
+  function onScanSuccess(decodedText) {
+    document.getElementById('resultado').innerText =
+      "Documento detectado: " + decodedText;
+
+    html5QrCode.stop();
+
+    // Buscar el aprendiz en nuestros datos
+    const aprendiz = aprendices.find(a => a.documento === decodedText);
+    
+    if (aprendiz) {
+      // Redirigir a la página de registro con los datos del aprendiz
+      const params = new URLSearchParams();
+      params.append('documento', aprendiz.documento);
+      params.append('nombre', aprendiz.nombre);
+      params.append('apellido', aprendiz.apellido);
+      params.append('correo', aprendiz.correo);
+      params.append('ficha', aprendiz.ficha);
+      params.append('telefono', aprendiz.telefono);
+      
+      window.location.href = `registro_ingreso.html?${params.toString()}`;
+    } else {
+      document.getElementById('resultado').innerText += "\n❌ Documento no encontrado";
+      // Reactivar el escáner después de 2 segundos
+      setTimeout(() => {
+        html5QrCode.start(
+          { facingMode: "environment" }, 
+          { fps: 10, qrbox: 250 }, 
+          onScanSuccess
+        );
+      }, 2000);
+    }
+  }
+
+  window.addEventListener("load", () => {
+    html5QrCode = new Html5Qrcode("reader");
+    html5QrCode
+      .start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, onScanSuccess)
+      .catch(err => {
+        document.getElementById("resultado").innerText =
+          "Error de cámara: " + err;
+      });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Registro de Ingreso - SENA ACCESS</title>
+<link rel="stylesheet" href="../paginas.css">
+<style>
+  body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+  .container { width: 500px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  h2 { text-align: center; }
+  label { display: block; margin-top: 15px; font-weight: bold; }
+  input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+  button { background: #28a745; color: white; border: none; font-size: 16px; cursor: pointer; }
+  button:hover { background: #218838; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Registro de Ingreso</h2>
+  
+  <form action="registrar_ingreso.php" method="POST">
+    <label for="documento">Número de Documento:</label>
+    <input type="text" id="documento" name="documento" required>
+
+    <label for="vehiculo">¿Trae moto?</label>
+    <select id="vehiculo" name="vehiculo">
+      <option value="0">No</option>
+      <option value="1">Sí</option>
+    </select>
+
+    <label for="uso_pc">¿Trae portátil?</label>
+    <select id="uso_pc" name="uso_pc">
+      <option value="0">No</option>
+      <option value="1">Sí</option>
+    </select>
+
+    <button type="submit">Registrar Ingreso</button>
+  </form>
+
+  <br>
+  <button onclick="window.location.href='index.html'">⬅ Volver al Menú</button>
+</div>
+
+</body>
+</html>

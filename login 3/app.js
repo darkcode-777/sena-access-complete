@@ -19,6 +19,9 @@ app.use(session({
     saveUninitialized: true  // Guardar la sesión incluso si no ha sido inicializada
 }));
 
+// Middleware para parsear JSON
+app.use(express.json());
+
 // Crear la conexión a la base de datos
 const connection = mysql.createPool({
     host: 'localhost',
@@ -58,6 +61,49 @@ app.get('/validar', (req, res) => {
         res.status(200).send('Sesión validada');
     } else {
         res.status(401).send('No autorizado');
+    }
+});
+
+// Ruta para registrar aprendiz
+app.post('/registrar-aprendiz', async (req, res) => {
+    try {
+        const { nombre, apellido, correo, ficha, telefono, tipoDoc, numeroDoc, serial } = req.body;
+
+        // Validación básica
+        if (!nombre || !apellido || !numeroDoc) {
+            return res.status(400).json({ success: false, message: 'Faltan campos requeridos' });
+        }
+
+        // Insertar en la tabla aprendices
+        const query = `
+            INSERT INTO aprendices 
+            (Nombre, Apellido, Correo, Número_de_Ficha, Celular, Tipo_de_Documento, Número_de_Documento, Serial_del_Computador)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        const [results] = await connection.query(query, [
+            nombre,
+            apellido,
+            correo || null,
+            ficha || null,
+            telefono || null,
+            tipoDoc || null,
+            numeroDoc,
+            serial || null
+        ]);
+
+        res.status(201).json({
+            success: true,
+            message: 'Aprendiz registrado exitosamente',
+            id: results.insertId
+        });
+    } catch (err) {
+        console.error('Error al registrar aprendiz:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Error al registrar el aprendiz',
+            error: err.message
+        });
     }
 });
 

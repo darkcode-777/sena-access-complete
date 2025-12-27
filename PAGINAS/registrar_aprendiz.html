@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Registrar Aprendiz - Maqueta</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .form-card{background:rgba(0,0,0,0.35);padding:20px;border-radius:8px;max-width:720px;color:#fff}
+    .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .form-row > div{flex:1;min-width:180px}
+    label{color:#fff}
+    .file-info{font-size:13px;color:#ddd;margin-top:6px}
+    .actions-row{display:flex;gap:12px;margin-top:18px}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>SENA ACCESS</h2>
+    <a href="mock_aprendices.html">Aprendices</a>
+    <a href="mock_actividad.html">Actividad</a>
+    <a href="mock_escanear.html">Escanear QR</a>
+    <a href="#" id="logout">Cerrar sesión</a>
+  </aside>
+  <main class="content">
+    <h3>Registrar Aprendiz</h3>
+    <div class="form-card">
+      <form id="formRegistrar">
+        <div class="form-row">
+          <div>
+            <label for="nombre">Nombre del Aprendiz:</label>
+            <input id="nombre" name="nombre" required>
+          </div>
+          <div>
+            <label for="apellido">Apellido:</label>
+            <input id="apellido" name="apellido">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label for="correo">Correo:</label>
+            <input id="correo" name="correo" type="email">
+          </div>
+          <div>
+            <label for="ficha">Número de Ficha:</label>
+            <input id="ficha" name="ficha">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label for="telefono">Teléfono:</label>
+            <input id="telefono" name="telefono">
+          </div>
+          <div>
+            <label for="tipoDoc">Tipo de Documento:</label>
+            <select id="tipoDoc" name="tipoDoc">
+              <option value="">Seleccione</option>
+              <option value="cc">Cédula de ciudadanía</option>
+              <option value="ti">Tarjeta de identidad</option>
+              <option value="pasaporte">Pasaporte</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label for="numeroDoc">Número de Documento:</label>
+            <input id="numeroDoc" name="numeroDoc">
+          </div>
+          <div>
+            <label for="serial">Serial del Computador:</label>
+            <input id="serial" name="serial">
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button type="submit">Registrar Aprendiz</button>
+          <button type="button" id="btn-cancel">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // logout behavior
+    try{ document.getElementById('logout').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('logueado'); window.location.href='../index.html'; }); }catch(e){}
+
+    // file input preview
+    var fileInput = document.getElementById('imgPortatil');
+    var fileInfo = document.getElementById('fileInfo');
+    fileInput.addEventListener('change', function(){
+      if(fileInput.files && fileInput.files.length>0){
+        fileInfo.textContent = fileInput.files[0].name;
+      } else {
+        fileInfo.textContent = 'Sin archivos seleccionados';
+      }
+    });
+
+    // submit (maqueta)
+    document.getElementById('formRegistrar').addEventListener('submit', function(e){
+      e.preventDefault();
+      // recoger valores (maqueta)
+      var datos = {
+        nombre: document.getElementById('nombre').value.trim(),
+        apellido: document.getElementById('apellido').value.trim(),
+        correo: document.getElementById('correo').value.trim(),
+        ficha: document.getElementById('ficha').value.trim(),
+        telefono: document.getElementById('telefono').value.trim(),
+        tipoDoc: document.getElementById('tipoDoc').value,
+        numeroDoc: document.getElementById('numeroDoc').value.trim(),
+        serial: document.getElementById('serial').value.trim(),
+        archivo: (fileInput.files && fileInput.files[0]) ? fileInput.files[0].name : ''
+      };
+      console.log('Registro (maqueta):', datos);
+      alert('Aprendiz registrado (maqueta).');
+      // volver a la lista
+      window.location.href = 'mock_aprendices.html';
+    });
+
+    document.getElementById('btn-cancel').addEventListener('click', function(){
+      window.location.href = 'mock_aprendices.html';
+    });
+  </script>
+</body>
+</html>

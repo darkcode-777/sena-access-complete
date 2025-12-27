@@ -22,7 +22,10 @@ function Login() {
   console.log('Enviando login a:', url);
   const peticion = await fetch(url, { credentials: 'include' });
     if (peticion.ok) {
-      setLogueado(true);
+      // Guardar sesión en localStorage
+      try { localStorage.setItem('logueado', 'true'); } catch(err) {}
+      // Redirigir a mock_aprendices.html
+      window.location.href = './PAGINAS/mock_aprendices.html';
     } else {
       alert('Usuario o clave incorrectos');
     }

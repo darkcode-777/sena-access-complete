@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SENA ACCESS</title>
+<link rel="stylesheet" href="../../paginas.css">
+</head>
+<body>
+<div class="sidebar">
+  <h2>BIENVENIDO</h2>
+  <a href="../../aprendizes.html">Aprendices</a>
+  <a href="../../actividad_de_ingresos_salidas.html">Actividad de Ingresos y Salidas</a>
+  <a href="../../escanear_qr.html">Escanear QR</a>
+</div>
+
+<div class="content">
+  <h3>Registro del aprendiz "Solo Moto"</h3>
+
+  <form action="registrar_aprendiz_moto.php" method="POST" enctype="multipart/form-data">
+    <label>Nombre del Aprendiz:</label>
+    <input type="text" name="nombre" required>
+
+    <label>Apellido:</label>
+    <input type="text" name="apellido" required>
+
+    <label>Correo:</label>
+    <input type="email" name="correo" required>
+
+    <label>Número de Ficha:</label>
+    <input type="text" name="ficha" required>
+
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" required>
+
+    <label>Tipo de Documento:</label>
+    <select name="tipo_documento" required>
+      <option value="">Seleccione</option>
+      <option value="CC">Cédula de ciudadanía</option>
+      <option value="TI">Tarjeta de identidad</option>
+      <option value="CE">Cédula de extranjería</option>
+      <option value="PPT">PPT</option>
+    </select>
+
+    <label>Número de Documento:</label>
+    <input type="text" name="documento" required>
+
+    <label>Tarjeta de Propiedad de la Moto:</label>
+    <input type="file" name="propiedad_moto" required>
+
+    <br><br>
+    <button type="submit">Registrar Aprendiz</button>
+  </form>
+</div>
+</body>
+</html>

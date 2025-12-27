@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Aprendices - Maqueta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>SENA ACCESS</h2>
+    <a href="mock_aprendices.html">Aprendices</a>
+    <a href="mock_actividad.html">Actividad</a>
+    <a href="mock_escanear.html">Escanear QR</a>
+    <a href="#" id="logout">Cerrar sesión</a>
+  </aside>
+  <main class="content">
+    <h3>Maqueta - Aprendices</h3>
+    <p>Listado de aprendices y portátiles (maqueta).</p>
+    <div class="actions">
+      <button id="btn-registrar" class="btn">Registrar Aprendiz</button>
+      <button id="btn-actualizar" class="btn">Actualizar Datos</button>
+    </div>
+    <div id="aprendicesGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+      <!-- No hay aprendices pre-registrados en la maqueta. -->
+    </div>
+  </main>
+<script>
+  function escapeHtml(str){
+    if(!str) return '';
+    return str.replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m];});
+  }
+
+  document.getElementById('logout').addEventListener('click', function(e){
+    e.preventDefault();
+    try{ localStorage.removeItem('logueado'); }catch(e){}
+    window.location.href='../index.html';
+  });
+
+  document.getElementById('btn-registrar').addEventListener('click', function(){
+    // Abrir formulario de registro (maqueta)
+    window.location.href = 'registrar_aprendiz.html';
+  });
+
+  document.getElementById('btn-actualizar').addEventListener('click', function(){
+    // Abrir formulario de registro (maqueta)
+    window.location.href = 'actualizar.html';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Actividad - Maqueta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>SENA ACCESS</h2>
+    <a href="mock_aprendices.html">Aprendices</a>
+    <a href="mock_actividad.html">Actividad</a>
+    <a href="mock_escanear.html">Escanear QR</a>
+    <a href="#" id="logout">Cerrar sesión</a>
+  </aside>
+  <main class="content">
+    <h3>Maqueta - Actividad de Ingresos y Salidas</h3>
+    <p>Registro de movimientos (maqueta).</p>
+    <table style="background:rgba(0,0,0,0.35);border-radius:8px;padding:8px;width:100%">
+      <thead>
+        <tr><th>Fecha</th><th>Aprendiz</th><th>Portátil</th><th>Acción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2025-11-13 08:12</td><td>Juan Pérez</td><td>Lenovo T14 (ABC123)</td><td>Ingreso</td></tr>
+        <tr><td>2025-11-13 12:40</td><td>María Gómez</td><td>HP ProBook (DEF456)</td><td>Salida</td></tr>
+        <tr><td>2025-11-14 09:05</td><td>Carlos Díaz</td><td>Asus X15 (GHI789)</td><td>Ingreso</td></tr>
+      </tbody>
+    </table>
+  </main>
+<script>
+  document.getElementById('logout').addEventListener('click', function(e){
+    e.preventDefault();
+    try{ localStorage.removeItem('logueado'); }catch(e){}
+    window.location.href='../index.html';
+  });
+</script>
+</body>
+</html>

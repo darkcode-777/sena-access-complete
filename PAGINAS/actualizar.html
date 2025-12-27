@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Aprendices - Maqueta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>SENA ACCESS</h2>
+    <a href="mock_aprendices.html">Aprendices</a>
+    <a href="mock_actividad.html">Actividad</a>
+    <a href="mock_escanear.html">Escanear QR</a>
+    <a href="#" id="logout">Cerrar sesión</a>
+  </aside>
+
+<div class="content">
+  <h3>Buscar Aprendiz para Actualizar</h3>
+  <form action="buscar_aprendiz.php" method="GET">
+    <label>Número de Ficha:</label>
+    <input type="text" name="ficha" required>
+
+    <label>Tipo de Documento:</label>
+    <select name="tipo_documento" required>
+      <option value="">Seleccione</option>
+      <option value="CC">Cédula de ciudadanía</option>
+      <option value="TI">Tarjeta de identidad</option>
+      <option value="CE">Cédula de extranjería</option>
+      <option value="PPT">PPT</option>
+    </select>
+
+    <label>Número de Documento:</label>
+    <input type="text" name="documento" required>
+
+    <br><br>
+    <button type="submit">Buscar Aprendiz</button>
+  </form>
+</div>
+</body>
+</html>

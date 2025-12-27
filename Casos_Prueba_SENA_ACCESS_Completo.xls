@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body{font-family:Arial, sans-serif; margin:10px}
+  table{border-collapse:collapse;width:100%;font-size:10px}
+  th,td{border:1px solid #333;padding:5px;text-align:left;vertical-align:top}
+  th{background:#2c5aa0;color:white;font-weight:bold}
+  tr:nth-child(even){background:#f9f9f9}
+</style>
+</head>
+<body>
+<h2>Plantilla de Casos de Prueba - SENA ACCESS</h2>
+<table>
+<thead>
+<tr>
+<th>Descripción</th>
+<th>Fecha</th>
+<th>Área Funcional / Sub proceso</th>
+<th>Funcionalidad / Características</th>
+<th>Datos / Acciones de Entrada</th>
+<th>Resultado Esperado</th>
+<th>Requerimientos de Ambiente de Prueba</th>
+<th>Procedimientos especiales requeridos</th>
+<th>Dependencias de otros casos de Prueba</th>
+<th>Resultado Obtenido</th>
+<th>Estado</th>
+<th>Última Fecha de Estatus</th>
+<th>Observaciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CP-001: Autenticación de administrador con credenciales válidas</td>
+<td>13/11/2025</td>
+<td>Seguridad / Autenticación</td>
+<td>Login de administrador</td>
+<td>Correo: ingresosena555@gmail.com; Contraseña: Sena2025**</td>
+<td>Redirección a PAGINAS/aprendizes.html; localStorage.logueado = true</td>
+<td>XAMPP activo; servidor Apache corriendo; navegador Chrome/Firefox</td>
+<td>Limpiar localStorage antes de prueba; usar base de datos limpia</td>
+<td>Ninguna</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Credenciales hardcodeadas en script.js línea 3-4</td>
+</tr>
+<tr>
+<td>CP-002: Rechazo con credenciales inválidas</td>
+<td>13/11/2025</td>
+<td>Seguridad / Autenticación</td>
+<td>Validación de credenciales incorrectas</td>
+<td>Correo incorrecto o contraseña incorrecta</td>
+<td>Alert: "Correo o contraseña incorrectos."; No se realiza redirección</td>
+<td>XAMPP activo; navegador con soporte para alerts</td>
+<td>Ejecutar varias combinaciones (correo vacío, pass vacía, ambas incorrectas)</td>
+<td>Debe ejecutarse CP-001 primero (para validar que login correcto funciona)</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Validación básica en cliente (JS)</td>
+</tr>
+<tr>
+<td>CP-003: Registro de aprendiz con portátil</td>
+<td>13/11/2025</td>
+<td>Gestión / Registro Aprendices</td>
+<td>Registro de aprendiz con datos del portátil</td>
+<td>Nombre, Apellido, Correo, Ficha, Teléfono, Tipo Documento, Número Documento, Marca Portátil, Modelo, Serial, Archivo Propiedad</td>
+<td>Registro insertado en tabla aprendices; archivo guardado en carpeta uploads; mensaje "✅ Aprendiz registrado correctamente"</td>
+<td>XAMPP + MySQL; base de datos sena_access existente; carpeta uploads con permisos 777; navegador actualizando</td>
+<td>Subir archivo PDF/JPG válido; verificar permiso escritura en uploads/</td>
+<td>Ninguna</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Verificar que no exista duplicado de documento antes de insertar</td>
+</tr>
+<tr>
+<td>CP-004: Rechazo de registro duplicado (mismo documento)</td>
+<td>13/11/2025</td>
+<td>Gestión / Validación Datos</td>
+<td>Prevención de aprendices duplicados</td>
+<td>Intento de registro con documento ya existente en BD</td>
+<td>Alert: "⚠️ Este aprendiz ya se encuentra registrado"; redirección a moto.html sin inserción</td>
+<td>XAMPP + MySQL; aprendiz previo registrado en tabla</td>
+<td>Ejecutar CP-003 primero; intentar registrar con el mismo documento</td>
+<td>CP-003</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Consulta verificación SELECT en línea 28-30 del PHP</td>
+</tr>
+<tr>
+<td>CP-005: Generación y almacenamiento de código QR</td>
+<td>13/11/2025</td>
+<td>Gestión / Generación QR</td>
+<td>Creación automática de código QR único por portátil</td>
+<td>Registro completado de aprendiz + portátil</td>
+<td>Campo propiedad_moto (o _portatil) contiene ruta del archivo subido; si aplica, se genera QR con identificador único</td>
+<td>XAMPP; librería QR (si aplica); base de datos; carpeta uploads</td>
+<td>Verificar que el archivo se guarda con timestamp: time()_portatil_nombre.ext</td>
+<td>CP-003</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Script actual en registrar_aprendiz_portatil.php no genera QR explícitamente; se puede integrar librería qrcode después</td>
+</tr>
+<tr>
+<td>CP-006: Búsqueda de aprendiz por documento</td>
+<td>13/11/2025</td>
+<td>Gestión / Búsqueda</td>
+<td>Búsqueda y recuperación de registro de aprendiz</td>
+<td>Número de documento del aprendiz</td>
+<td>Mostrar datos completos del aprendiz (nombre, apellido, portátil, serial, etc.)</td>
+<td>XAMPP + MySQL; aprendiz registrado; acceso a actualizar.html</td>
+<td>Usar herramienta MySQL Workbench o phpMyAdmin para verificar registros</td>
+<td>CP-003</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Implementar en buscar_aprendiz.php con JOIN entre tablas si existe relación</td>
+</tr>
+<tr>
+<td>CP-007: Actualización de datos del portátil</td>
+<td>13/11/2025</td>
+<td>Gestión / Actualización</td>
+<td>Modificación de información del portátil registrado</td>
+<td>Documento del aprendiz; nuevos valores (marca, modelo, serial)</td>
+<td>Datos actualizados en tabla aprendices; UI refleja cambios; mensaje de confirmación</td>
+<td>XAMPP + MySQL; portátil registrado; acceso a actualizar.html</td>
+<td>Ejecutar UPDATE en MySQL Workbench en paralelo para verificar cambios</td>
+<td>CP-003</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Script actualizar_aprendiz.php debe contener validación de existencia previa</td>
+</tr>
+<tr>
+<td>CP-008: Registro de ingreso (escaneo QR)</td>
+<td>13/11/2025</td>
+<td>Control Acceso / Movimientos</td>
+<td>Registro de entrada de portátil mediante escaneo QR</td>
+<td>Escanear código QR del portátil con lector o cámara</td>
+<td>Respuesta: "ok"; registro creado en tabla de movimientos con timestamp; estado portátil = "dentro"</td>
+<td>XAMPP + MySQL; lector QR configurado; cámara web (si aplica); aprendiz + portátil previos</td>
+<td>Usar herramienta de prueba QR (imprimir códigos o generar dinámicamente); probar lectura con cámara</td>
+<td>CP-003</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Endpoint registrar_ingreso_salida.php valida documento y retorna "ok" o "no"</td>
+</tr>
+<tr>
+<td>CP-009: Registro de salida (escaneo QR con ingreso previo)</td>
+<td>13/11/2025</td>
+<td>Control Acceso / Movimientos</td>
+<td>Registro de salida de portátil con validación de ingreso previo</td>
+<td>Escanear QR de portátil que previamente ingresó</td>
+<td>Respuesta: "ok"; registro de salida creado; estado portátil = "fuera"</td>
+<td>XAMPP + MySQL; lector QR; portátil con ingreso previo (CP-008)</td>
+<td>Ejecutar CP-008 antes; escanear mismo QR nuevamente</td>
+<td>CP-008</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Validar que exista registro de ingreso sin salida antes de permitir salida</td>
+</tr>
+<tr>
+<td>CP-010: Rechazo de salida sin ingreso previo</td>
+<td>13/11/2025</td>
+<td>Control Acceso / Validación</td>
+<td>Prevención de salida sin ingreso</td>
+<td>Escanear QR de portátil que no tiene ingreso activo</td>
+<td>Respuesta: "no" o mensaje de error; sin creación de registro de salida</td>
+<td>XAMPP + MySQL; lector QR; portátil registrado sin ingreso</td>
+<td>Ejecutar validación de estado en BD antes de permitir salida</td>
+<td>Ninguna (pero debe haber portátil previo)</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Modificar script para verificar último movimiento es ingreso antes de permitir salida</td>
+</tr>
+<tr>
+<td>CP-011: Visualización de historial de movimientos</td>
+<td>13/11/2025</td>
+<td>Reportes / Historial</td>
+<td>Consulta del historial de ingresos/salidas de un portátil</td>
+<td>Seleccionar portátil / aprendiz en interfaz</td>
+<td>Se muestra tabla con todos los movimientos (fecha, hora, tipo: ingreso/salida)</td>
+<td>XAMPP + MySQL; historial de movimientos en tabla; interfaz de visualización</td>
+<td>Usar vista actividad_de_ingresos_salidas.html; verificar JOIN con tabla movimientos</td>
+<td>CP-008, CP-009</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Requiere tabla de movimientos con foreign keys hacia aprendices</td>
+</tr>
+<tr>
+<td>CP-012: Verificación de integridad de datos en BD</td>
+<td>13/11/2025</td>
+<td>Base de Datos / Integridad</td>
+<td>Validación de consistencia entre tablas aprendices y movimientos</td>
+<td>Ejecutar múltiples ingresos/salidas; consulta de reconciliación</td>
+<td>Sin registros huérfanos; cada movimiento referencia aprendiz válido; conteos coinciden</td>
+<td>XAMPP + MySQL; MySQL Workbench; script SQL de validación</td>
+<td>Ejecutar queries: SELECT COUNT(*) de cada tabla; verificar foreign keys; revisar logs de error MySQL</td>
+<td>CP-008, CP-009, CP-011</td>
+<td>Por ejecutar</td>
+<td>Por ejecutar</td>
+<td>--</td>
+<td>Crear script SQL con validaciones de integridad referencial</td>
+</tr>
+</tbody>
+</table>
+
+<p style="margin-top:20px"><strong>Leyenda:</strong><br>
+- <strong>Estado:</strong> Por ejecutar / En progreso / Fallido / Aprobado<br>
+- <strong>Resultado Obtenido:</strong> Detallar qué sucedió realmente (si diff. a esperado, incluir evidencia)<br>
+- <strong>Observaciones:</strong> Notas técnicas, links a código, comentarios relevantes<br>
+- <strong>Última Fecha de Estatus:</strong> Completar con fecha cuando se actualice Estado
+</p>
+
+</body>
+</html>
